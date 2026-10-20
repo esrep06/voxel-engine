@@ -57,7 +57,7 @@ target_link_libraries(VoxelEngine PRIVATE
 )
 
 if(APPLE)
-    target_link_libraries(Engine PRIVATE
+    target_link_libraries(VoxelEngine PRIVATE
         "-framework OpenGL"
         "-framework CoreVideo"
         "-framework Cocoa"
