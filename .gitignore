@@ -1,0 +1,10 @@
+.cache
+build.sh
+/build
+/build-*/ 
+.vscode 
+.idea 
+*.swp 
+*.swp 
+.DS_Store
+compile_commands.json
