@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    application app = application("Voxel Engine", 800, 600, utilz::rgba_color{100, 100, 100, 255});
+    application app = application("Voxel Engine", 1600, 900, utilz::rgba_color{100, 0, 100, 255});
 
     app.run();
 

@@ -30,7 +30,7 @@ void application::run() {
 
     float yaw = -90; 
     float pitch = 0;
-    const float sens = 0.1f;
+    const float sens = 0.3f;
 
     std::cout << utilz::vector3f::cross(a, b).to_string() << std::endl; 
 
@@ -44,39 +44,44 @@ void application::run() {
 
         utilz::vector2f mouse_movement = input::get_mouse_delta() * sens;
 
-        std::cout << mouse_movement.to_string() << std::endl;
-
-        yaw += mouse_movement.x;
-        pitch -= mouse_movement.y;
+        yaw += mouse_movement.x * sens;
+        pitch -= mouse_movement.y * sens;
 
         if(pitch > 89.0f)
             pitch =  89.0f;
         if(pitch < -89.0f)
             pitch = -89.0f;
 
-        direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-        direction.y = sin(glm::radians(pitch));
-        direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        glm::quat yaw_rotation = glm::angleAxis(glm::radians(-(yaw + 90.0f)), glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::quat pitch_rotation = glm::angleAxis(glm::radians(pitch), glm::vec3(1.0f, 0.0f, 0.0f));
 
-        main_camera.front = utilz::vector3f::normalize(direction);
+        glm::quat orientation = glm::normalize(yaw_rotation * pitch_rotation);
+
+        main_camera.transform.set_rotation(orientation);
 
         if (input::get_key(GLFW_KEY_W)) { 
-            main_camera.position += main_camera.front * camera_speed * get_time().delta_time();
+            main_camera.transform.position += main_camera.transform.forward() * camera_speed * get_time().delta_time();
         }
 
         if (input::get_key(GLFW_KEY_S)) {
-            main_camera.position -= main_camera.front * camera_speed * get_time().delta_time();
+            main_camera.transform.position -= main_camera.transform.forward() * camera_speed * get_time().delta_time();
         }
 
         if (input::get_key(GLFW_KEY_D)) {
-            main_camera.position += utilz::vector3f::normalize(utilz::vector3f::cross(main_camera.front, up)) * camera_speed * get_time().delta_time();
+            main_camera.transform.position += utilz::vector3f::normalize(utilz::vector3f::cross(main_camera.transform.forward(), up)) * camera_speed * get_time().delta_time();
         }
 
         if (input::get_key(GLFW_KEY_A)) {
-            main_camera.position -= utilz::vector3f::normalize(utilz::vector3f::cross(main_camera.front, up)) * camera_speed * get_time().delta_time();
+            main_camera.transform.position -= utilz::vector3f::normalize(utilz::vector3f::cross(main_camera.transform.forward(), up)) * camera_speed * get_time().delta_time();
         }
 
-        if (input::get_key(GLFW_KEY_A)) {}
+        if (input::get_key(GLFW_KEY_SPACE)) {
+            main_camera.transform.position += utilz::vector3f::normalize(main_camera.transform.up()) * camera_speed * get_time().delta_time();
+        }
+
+        if (input::get_key(GLFW_KEY_LEFT_CONTROL)) {
+            main_camera.transform.position -= utilz::vector3f::normalize(main_camera.transform.up()) * camera_speed * get_time().delta_time();
+        }
 
         p_renderer.render(main_camera);
 

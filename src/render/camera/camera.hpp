@@ -1,8 +1,7 @@
 #pragma once 
 
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <cpp-utilz/math/vector3.hpp>
+#include <core/utils/utils.hpp>
+#include <scene/components/transform.hpp>
 
 class camera {
 public: 
@@ -11,9 +10,9 @@ public:
 
     glm::mat4 get_view_matrix() const;   
     glm::mat4 get_projection_matrix() const;
-    utilz::vector3f front = utilz::vector3f(0.0f, 0.0f, -1.0f);
 
-    utilz::vector3f position = utilz::vector3f(0.0f, 0.0f, 0.0f);
+    class transform transform;
+
     float fov = 90.0f;
 private: 
     float p_aspect_ratio = 16.0f / 9.0f;
