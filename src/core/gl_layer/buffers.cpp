@@ -62,11 +62,12 @@ namespace gl_layer
 
     ebo::ebo() 
     {}
+
     ebo::~ebo() { free(); }
 
     void ebo::generate()
     { 
-        if (id != 0) return
+        if (id != 0) { return; }
 
         glGenBuffers(1, &id); 
     }

@@ -6,6 +6,8 @@
 #include <render/renderer/renderer.hpp>
 #include <render/camera/camera.hpp>
 
+#include <cpp-utilz/math/m_utilz.hpp>
+
 class application {
 public:
     application(std::string title, uint16_t width, uint16_t height, utilz::rgba_color color);

@@ -32,8 +32,6 @@ void application::run() {
     float pitch = 0;
     const float sens = 0.3f;
 
-    std::cout << utilz::vector3f::cross(a, b).to_string() << std::endl; 
-
     while (!p_window.should_close())
     {
         p_time.update();
@@ -47,10 +45,7 @@ void application::run() {
         yaw += mouse_movement.x * sens;
         pitch -= mouse_movement.y * sens;
 
-        if(pitch > 89.0f)
-            pitch =  89.0f;
-        if(pitch < -89.0f)
-            pitch = -89.0f;
+        pitch = utilz::m_utilz::clampf(-89.0f, 89.0f, pitch);
 
         glm::quat yaw_rotation = glm::angleAxis(glm::radians(-(yaw + 90.0f)), glm::vec3(0.0f, 1.0f, 0.0f));
         glm::quat pitch_rotation = glm::angleAxis(glm::radians(pitch), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -76,11 +71,11 @@ void application::run() {
         }
 
         if (input::get_key(GLFW_KEY_SPACE)) {
-            main_camera.transform.position += utilz::vector3f::normalize(main_camera.transform.up()) * camera_speed * get_time().delta_time();
+            main_camera.transform.position += utilz::vector3f(0.0, 1.0f, 0.0f) * camera_speed * get_time().delta_time();
         }
 
         if (input::get_key(GLFW_KEY_LEFT_CONTROL)) {
-            main_camera.transform.position -= utilz::vector3f::normalize(main_camera.transform.up()) * camera_speed * get_time().delta_time();
+            main_camera.transform.position -= utilz::vector3f(0.0, 1.0f, 0.0f) * camera_speed * get_time().delta_time();
         }
 
         p_renderer.render(main_camera);
