@@ -3,6 +3,7 @@
 #include <render/shader/shader_pool.hpp>
 #include <render/texture/texture_pool.hpp>
 #include <render/camera/camera.hpp>
+#include <render/texture/texture_atlas.hpp>
 #include <core/gl_layer/buffers.hpp>
 
 class renderer {
@@ -21,6 +22,7 @@ public:
 private: 
     shader_pool p_shader_pool;
     texture_pool p_texture_pool;
+
     void send_camera(const camera& cam, shader* shader);
 };
 
