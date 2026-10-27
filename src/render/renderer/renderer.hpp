@@ -4,7 +4,10 @@
 #include <render/texture/texture_pool.hpp>
 #include <render/camera/camera.hpp>
 #include <render/texture/texture_atlas.hpp>
+#include <render/mesh/mesh.hpp>
 #include <core/gl_layer/buffers.hpp>
+#include <world/chunk/chunk.hpp>
+#include <world/chunk/chunk_mesher.hpp>
 
 class renderer {
 public: 

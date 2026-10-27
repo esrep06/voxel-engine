@@ -12,14 +12,14 @@ public:
                   int atlas_height, int element_width, int element_height);
 
     // top left, top right, bottom left, bottom right
-    std::array<utilz::vector2f, 4> get_uv_coords(std::string name);
+    std::array<utilz::vector2f, 4> get_uv_coords(uint32_t id) const;
 
     // x and y index in atlas 
-    void register_element(std::string name, int x, int y);
+    void register_element(uint32_t id, int x, int y);
 private: 
     texture* p_texture = nullptr;
 
-    std::unordered_map<std::string, utilz::vector2> p_element_map;
+    std::unordered_map<int32_t, utilz::vector2> p_element_map;
 
     int p_atlas_width = 0; 
     int p_atlas_height = 0;

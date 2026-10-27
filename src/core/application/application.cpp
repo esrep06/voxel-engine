@@ -24,8 +24,6 @@ void application::run() {
     utilz::vector3f up = utilz::vector3f(0.0f, 1.0f, 0.0f);
     const float camera_speed = 10.0f;
 
-    utilz::vector3f a = utilz::vector3f(3, 0, 2);
-    utilz::vector3f b = utilz::vector3f(-1, 4, 2);
     utilz::vector3f direction;
 
     float yaw = -90; 
