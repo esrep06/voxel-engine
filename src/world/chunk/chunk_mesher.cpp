@@ -68,54 +68,24 @@ void chunk_mesher::generate_face(
     }
 }
 
-
 mesh_data chunk_mesher::generate(const chunk& source, const texture_atlas& atlas) {
     mesh_data data;
 
-     for (int x = source.get_origin().x; x < source.CHUNK_SIZE_X; x++) {
-        for (int z = source.get_origin().z; z < source.CHUNK_SIZE_Z; z++) {
-          for (int y = source.get_origin().y; y < source.CHUNK_SIZE_Y; y++) {
+     for (int x = 0; x < source.CHUNK_SIZE_X; x++) {
+        for (int z = 0; z < source.CHUNK_SIZE_Z; z++) {
+          for (int y = 0; y < source.CHUNK_SIZE_Y; y++) {
                 BLOCK_TYPE type = source.get_block(x, y, z);
 
                 if (type == BLOCK_TYPE::AIR) continue;
 
-                generate_face(&data, type, BLOCK_FACE::FRONT, atlas, x, y, z);
-                generate_face(&data, type, BLOCK_FACE::BACK, atlas, x, y, z);
-                generate_face(&data, type, BLOCK_FACE::BOTTOM, atlas, x, y, z);
-                generate_face(&data, type, BLOCK_FACE::LEFT, atlas, x, y, z);
-                generate_face(&data, type, BLOCK_FACE::RIGHT, atlas, x, y, z);
-                generate_face(&data, type, BLOCK_FACE::TOP, atlas, x, y, z);
+                std::array<BLOCK_TYPE, 6> neighbors = source.get_block_neighbors(x, y, z);
 
-                // data.vertices.push_back({.x = x + 0.0f, .y = y + 0.0f, .z = z + 0.0f, .u = uvs[0].x, .v = uvs[0].y});
-                // data.vertices.push_back({.x = x + 1.0f, .y = y + 0.0f, .z = z + 0.0f, .u = uvs[1].x, .v = uvs[1].y});
-                // data.vertices.push_back({.x = x + 0.0f, .y = y - 1.0f, .z = z + 0.0f, .u = uvs[2].x, .v = uvs[2].y});
-                // data.vertices.push_back({.x = x + 1.0f, .y = y - 1.0f, .z = z + 0.0f, .u = uvs[3].x, .v = uvs[3].y});
-                //
-                // data.vertices.push_back({.x = x + 1.0f, .y = y + 0.0f, .z =  z + 1.0f, .u = uvs[0].x, .v = uvs[0].y}); 
-                // data.vertices.push_back({.x = x + 0.0f, .y = y + 0.0f, .z = z + 1.0f, .u = uvs[1].x, .v = uvs[1].y});
-                // data.vertices.push_back({.x = x + 1.0f, .y = y - 1.0f, .z = z + 1.0f, .u = uvs[2].x, .v = uvs[2].y});
-                // data.vertices.push_back({.x = x + 0.0f, .y = y - 1.0f, .z = z + 1.0f, .u = uvs[3].x, .v = uvs[3].y});
-                //
-                // data.vertices.push_back({.x = x + 0.0f, .y = y + 0.0f, .z = z + 1.0f, .u = uvs[0].x, .v = uvs[0].y});
-                // data.vertices.push_back({.x = x + 0.0f, .y = y + 0.0f, .z = z + 0.0f, .u = uvs[1].x, .v = uvs[1].y});
-                // data.vertices.push_back({.x = x + 0.0f, .y = y - 1.0f, .z = z + 1.0f, .u = uvs[2].x, .v = uvs[2].y});
-                // data.vertices.push_back({.x = x + 0.0f, .y = y - 1.0f, .z = z + 0.0f, .u = uvs[3].x, .v = uvs[3].y});
-                //
-                // data.vertices.push_back({.x = x + 1.0f, .y = y + 0.0f, .z = z + 0.0f, .u = uvs[0].x, .v = uvs[0].y});
-                // data.vertices.push_back({.x = x + 1.0f, .y = y + 0.0f, .z = z + 1.0f, .u = uvs[1].x, .v = uvs[1].y});
-                // data.vertices.push_back({.x = x + 1.0f, .y = y - 1.0f, .z = z + 0.0f, .u = uvs[2].x, .v = uvs[2].y});
-                // data.vertices.push_back({.x = x + 1.0f, .y = y - 1.0f, .z = z + 1.0f, .u = uvs[3].x, .v = uvs[3].y});
-                //
-                // data.vertices.push_back({.x = x + 0.0f, .y = y + 0.0f, .z = z + 1.0f, .u = uvs[0].x, .v = uvs[0].y});
-                // data.vertices.push_back({.x = x + 1.0f, .y = y + 0.0f, .z = z + 1.0f, .u = uvs[1].x, .v = uvs[1].y});
-                // data.vertices.push_back({.x = x + 0.0f, .y = y + 0.0f, .z = z + 0.0f, .u = uvs[2].x, .v = uvs[2].y});
-                // data.vertices.push_back({.x = x + 1.0f, .y = y + 0.0f, .z = z + 0.0f, .u = uvs[3].x, .v = uvs[3].y});
-                //
-                // data.vertices.push_back({.x = x + 0.0f, .y = y - 1.0f, .z = z + 0.0f, .u = uvs[0].x, .v = uvs[0].y}); 
-                // data.vertices.push_back({.x = x + 1.0f, .y = y - 1.0f, .z = z + 0.0f , .u = uvs[1].x, .v = uvs[1].y});
-                // data.vertices.push_back({.x = x + 0.0f, .y = y - 1.0f, .z = z + 1.0f, .u = uvs[2].x, .v = uvs[2].y});
-                // data.vertices.push_back({.x = x + 1.0f, .y = y - 1.0f, .z = z + 1.0f, .u = uvs[3].x, .v = uvs[3].y});
-
+                for (int i = 0; i < static_cast<int>(neighbors.size()); i++)
+                {
+                    if (neighbors[i] == BLOCK_TYPE::AIR) {
+                        generate_face(&data, type, static_cast<BLOCK_FACE>(i), atlas, x + source.get_origin().x, y + source.get_origin().y, z + source.get_origin().z);
+                    }
+                }
             }
         }
     }

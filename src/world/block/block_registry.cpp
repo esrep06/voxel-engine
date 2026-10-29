@@ -32,6 +32,18 @@ block_registry::p_definitions = [] {
             BLOCK_TEXTURE::DIRT
         }
     };
+    
+    definitions[static_cast<uint8_t>(BLOCK_TYPE::COBBLESTONE)] = {
+        .solid = true,
+        .textures = {
+            BLOCK_TEXTURE::COBBLESTONE,
+            BLOCK_TEXTURE::COBBLESTONE,
+            BLOCK_TEXTURE::COBBLESTONE,
+            BLOCK_TEXTURE::COBBLESTONE,
+            BLOCK_TEXTURE::COBBLESTONE,
+            BLOCK_TEXTURE::COBBLESTONE
+        }
+    };
 
     return definitions;
 }();

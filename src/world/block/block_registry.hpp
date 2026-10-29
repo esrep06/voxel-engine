@@ -17,7 +17,8 @@ enum class BLOCK_FACE : uint8_t {
 enum class BLOCK_TEXTURE : uint8_t {
     GRASS_SIDE = 0,
     GRASS_TOP = 1,
-    DIRT = 2
+    DIRT = 2,
+    COBBLESTONE
 };
 
 struct block_definition {
